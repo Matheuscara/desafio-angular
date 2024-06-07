@@ -40,7 +40,7 @@ npm run start
 ```
 
 ## Para rodar os testes unitarios
-Para iniciar o servidor de testes execute: 
+Para iniciar o servidor de testes (atualmente com 80% de coverage) execute: 
 ```
 npm run test
 ```
