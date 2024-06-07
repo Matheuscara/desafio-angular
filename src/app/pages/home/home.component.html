@@ -1,0 +1,68 @@
+<section
+  class="home px-6 pt-16 h-full min-h-full md:pl-24 md:pr-12 flex items-center bg-background"
+>
+  <div class="mx-auto my-auto w-full">
+    <h1 class="font-semibold text-2xl text-title">Usuários</h1>
+    <div
+      class="flex justify-between mt-4 flex-col gap-4 items-end md:items-center md:flex-row"
+    >
+      <div [formGroup]="form" class="flex items-center flex-wrap gap-4 w-full">
+        <div class="relative w-full md:w-80">
+          <input
+            formControlName="query"
+            type="text"
+            class="p-2 bg-white rounded-lg w-full text-title border-style-primary font-semibold placeholder:font-placeholder placeholder:font-semibold placeholder:opacity-80 focus:outline-none"
+            placeholder="Pesquise pelo nome ou e-mail"
+          />
+          <span class="material-icons absolute right-4 top-2 text-text">
+            search
+          </span>
+        </div>
+        <app-input-select
+          class="w-full mb-1 md:w-40"
+          [form]="form"
+          label=""
+          placeholder="Status"
+          controlName="status"
+          [options]="[
+            { value: 'Ativo', label: 'Ativo' },
+            { value: 'Pendente', label: 'Pendente' },
+            { value: 'Bloqueado', label: 'Bloqueado' }
+          ]"
+        ></app-input-select>
+      </div>
+      <div>
+        <button
+          (click)="controlModal()"
+          class="w-max bg-primary py-2 px-10 text-center text-white rounded-lg hover:opacity-80"
+        >
+          Novo usuário
+        </button>
+      </div>
+    </div>
+
+    <div class="relative">
+      <app-table
+        *ngIf="this.userState.initialized"
+        [loading]="userState.initialized()"
+        [data]="listPage()"
+        [totalData]="
+          this.filteredData.length > 0
+            ? this.filteredData.length
+            : userState.users().length
+        "
+        [tableHeader]="tableHeader"
+        (pageChange)="pageChange($event)"
+      ></app-table>
+      <div
+        *ngIf="!this.userState.initialized()"
+        class="w-full flex justify-center items-center mt-16 absolute top-20"
+      >
+        <mat-spinner diameter="50" class="custom-spinner"></mat-spinner>
+      </div>
+    </div>
+  </div>
+</section>
+<app-modal [isVisible]="modalOpen">
+  <app-form-add-user (close)="controlModal()"></app-form-add-user>
+</app-modal>

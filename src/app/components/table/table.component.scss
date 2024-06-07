@@ -1,0 +1,24 @@
+.tableOverflow {
+  width: 100%;
+  display: block;
+  max-height: 800px;
+  overflow: auto;
+}
+
+@media screen and (max-width: 1250px) {
+  .tableOverflow {
+    max-height: 500px;
+    min-height: 500px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+    .tableOverflow {
+      max-height: 400px;
+      min-height: 400px;
+    }
+  }
+
+th {
+  min-width: 11rem;
+}

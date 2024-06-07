@@ -1,0 +1,109 @@
+<div class="border-style-primary bg-white mt-4 rounded-lg tableOverflow">
+  <table class="min-w-full">
+    <thead class="border-b">
+      <tr>
+        <th
+          *ngFor="let header of tableHeader; index as i"
+          class="py-4 px-6 text-left text-sm font-semibold text-text"
+        >
+          <div class="flex items-center min-w-min">
+            <h4>
+              {{ header }}
+            </h4>
+            <span
+              [tabindex]="i"
+              (keydown)="filterBiggerDateRegistrate()"
+              (click)="filterBiggerDateRegistrate()"
+              *ngIf="i == 2"
+              class="text-title text-xl material-icons"
+            >
+              {{
+                this.filterControlRows[0].activate
+                  ? "expand_more"
+                  : "expand_less"
+              }}
+            </span>
+            <span
+            [tabindex]="i"
+            (keydown)="filterBiggerDateRegistrate()"
+              (click)="filterBiggerDateLastAccess()"
+              *ngIf="i == 3"
+              class="text-title text-xl material-icons"
+            >
+              {{
+                this.filterControlRows[1].activate
+                  ? "expand_more"
+                  : "expand_less"
+              }}
+            </span>
+          </div>
+        </th>
+      </tr>
+    </thead>
+    <tbody *ngIf="loading">
+      <tr
+        *ngFor="
+          let user of dateFiltred.length > 0 ? dateFiltred : data;
+          index as i
+        "
+        class="border-b"
+        [ngClass]="{ 'bg-background': i % 2 != 0 }"
+      >
+      <td class="py-4 px-6 flex items-center">
+          <div
+            class="bg-green-500 text-white rounded-full h-10 w-10 flex items-center justify-center"
+          >
+            <img
+              class="w-10 h-10 rounded-full"
+              width="10px"
+              [src]="user.picture.thumbnail"
+              [alt]="user.email"
+            />
+          </div>
+
+          <div class="ml-4">
+            <div class="text-sm font-medium text-gray-900">
+              {{ user.name.first }} {{ user.name.last }}
+            </div>
+            <div class="text-sm text-text">{{ user.email }}</div>
+          </div>
+        </td>
+        <td class="py-4 px-6">
+          <span
+            class="text-sm font-normal px-2 py-1 rounded-full"
+            [ngClass]="{
+              'bg-green-100 text-green-600': this.getStatus(user.name.first) === 'Ativo',
+              'bg-yellow-100 text-yellow-600': this.getStatus(user.name.first) === 'Pendente',
+              'bg-red-100 text-red-600': this.getStatus(user.name.first) === 'Bloqueado'
+            }"
+            > {{this.getStatus(user.name.first) || ''}} </span
+          >
+        </td>
+        <td class="py-4 px-6 text-sm text-title">
+          {{ formatData(user.registered.date, "Date") }}
+        </td>
+        <td class="py-4 px-6 text-sm text-title">
+          {{ formatData(user.dob.date, "DateTime") }}
+        </td>
+        <td class="py-4 px-6 text-right">
+          <button class="text-text">
+            <span class="material-icons"> more_vert </span>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<div *ngIf="loading" class="flex justify-end">
+  <p-paginator
+    [first]="0"
+    [rows]="7"
+    [totalRecords]="totalData"
+    (onPageChange)="nextPage($event)"
+    [showCurrentPageReport]="true"
+    [showPageLinks]="false"
+    [showFirstLastIcon]="false"
+    [rowsPerPageOptions]="[7, 10, 15]"
+    [style]="{ backgroundColor: 'transparent' }"
+  ></p-paginator>
+</div>

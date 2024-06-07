@@ -1,0 +1,23 @@
+::ng-deep {
+    .p-inputtext {
+      outline: none;
+      box-shadow: none;
+      font-weight: 500;
+    }
+
+    .p-inputtext:focus {
+      border-color: #6691FF;
+    }
+
+    .p-inputtext::placeholder {
+      background-color: transparent !important;
+      color: #a8a2b4;
+      opacity: 80%;
+      font-weight: 500;
+    }
+  }
+  
+  .border-invalid {
+    border-color: #f05b6a !important;
+  }
+  

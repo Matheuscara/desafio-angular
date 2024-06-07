@@ -1,0 +1,12 @@
+<div class="flex flex-col gap-1" [formGroup]="form">
+  <div class="flex align-items-center">
+    <p-radioButton
+      [id]="categorie"
+      [value]="title"
+      [formControlName]="controlName || ''"
+      [inputId]="categorie"
+    />
+
+    <label [for]="categorie" class="ml-2 font-semibold text-text"> {{title}} </label>
+  </div>
+</div>
